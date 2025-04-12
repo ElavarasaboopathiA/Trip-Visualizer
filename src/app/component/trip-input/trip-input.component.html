@@ -1,0 +1,70 @@
+<div class="container mt-5">
+  <div class="card shadow rounded-4 p-4">
+    <h4 class="mb-4 text-primary">Add a New Trip</h4>
+
+    <!-- Form -->
+    <form (ngSubmit)="addTrip()" class="row g-3 align-items-end">
+      <!-- Start Point -->
+      <div class="col-md-4 form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="startInput"
+          placeholder="Start Point"
+          name="start"
+          [(ngModel)]="start"
+          required
+        />
+        <label for="startInput">Start Point</label>
+      </div>
+
+      <!-- End Point -->
+      <div class="col-md-4 form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="endInput"
+          placeholder="End Point"
+          name="end"
+          [(ngModel)]="end"
+          required
+        />
+        <label for="endInput">End Point</label>
+      </div>
+
+      <!-- Add Trip Button -->
+      <div class="col-md-4">
+        <button type="submit" class="btn btn-primary w-100 py-2">
+          ➕ Add Trip
+        </button>
+      </div>
+    </form>
+
+    <!-- Trip List Preview -->
+    <div *ngIf="trips.length" class="mt-4">
+      <h6 class="text-muted mb-2">Trip Preview</h6>
+      <div class="border rounded p-3 bg-light">
+        <span *ngFor="let trip of trips; let i = index">
+          {{ trip.start }} → {{ trip.end }}<span *ngIf="i < trips.length - 1">, </span>
+        </span>
+      </div>
+    </div>
+    
+
+    <!-- Show/Hide Map Button -->
+    <div class="text-end mb-3" *ngIf="trips.length > 0">
+      <button
+        type="button"
+        class="btn btn-outline-primary rounded-pill px-4"
+        (click)="isView = !isView"
+      >
+        {{ isView ? 'Hide Map' : 'Show Map' }}
+      </button>
+    </div>
+
+    <!-- Trip Map Component -->
+    <div *ngIf="isView">
+      <app-trip-timeline></app-trip-timeline>
+    </div>
+  </div>
+</div>
